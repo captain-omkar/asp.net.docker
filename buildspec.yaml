@@ -25,7 +25,7 @@ phases:
       #- /opt/sonar-scanner/bin/sonar-scanner  -Dsonar.projectKey= -Dsonar.sources=. -Dsonar.host.url=${SONAR_URL} -Dsonar.login=${SONAR_TOKEN}
       #- cd ServicesNGAPI
       - pwd
-      - docker build -t dotnet -f .
+      - docker build -t dotnet  .
       - docker tag dotnet:latest 954503069243.dkr.ecr.ap-south-1.amazonaws.com/om-test:latest
   post_build:
     commands:
