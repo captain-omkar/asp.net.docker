@@ -17,7 +17,9 @@ phases:
       - aws --version
       - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 954503069243.dkr.ecr.ap-south-1.amazonaws.com
       # - REPOSITORY_URI=954503069243.dkr.ecr.ap-south-1.amazonaws.com/om-test
-      - aws secretsmanager get-secret-value --secret-id ECR_REPO --query 'SecretString' --output text > ECR_REPO.txt 
+      - aws secretsmanager get-secret-value --secret-id sonar --query 'SecretString' --output text > sonar.json
+      - echo "$(jq -r '.SONAR_URL' secrets.json)"
+      - echo "$(jq -r '.SONAR_TOKEN' secrets.json)"
       - export KUBECONFIG=$HOME/.kube/config
   build:
     commands:
