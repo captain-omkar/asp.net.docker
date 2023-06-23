@@ -16,7 +16,8 @@ phases:
       - echo Logging in to Amazon ECR...
       - aws --version
       - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 954503069243.dkr.ecr.ap-south-1.amazonaws.com
-      - REPOSITORY_URI=954503069243.dkr.ecr.ap-south-1.amazonaws.com/om-test
+      # - REPOSITORY_URI=954503069243.dkr.ecr.ap-south-1.amazonaws.com/om-test
+      - aws secretsmanager get-secret-value --secret-id ECR_REPO --query 'SecretString' --output text > ECR_REPO.txt 
       - export KUBECONFIG=$HOME/.kube/config
   build:
     commands:
@@ -26,12 +27,12 @@ phases:
       #- cd ServicesNGAPI
       - pwd
       - docker build -t dotnet -f dotnet/Dockerfile .
-      - docker tag dotnet:latest 954503069243.dkr.ecr.ap-south-1.amazonaws.com/om-test:latest
+      - docker tag dotnet:latest ${ECR_REPO}:latest
   post_build:
     commands:
       - echo Build completed on `date`
       - echo Pushing the Docker images...
-      - docker push 954503069243.dkr.ecr.ap-south-1.amazonaws.com/om-test:latest
+      - docker push ${ECR_REPO}:latest
 #       - echo Writing image definitions file...
 #       - echo "$Repository_Name-$Branch_Name"
 #       - printf '[{"name":"sample-container","imageUri"465105616690.dkr.ecr.ap-south-1.amazonaws.com/servicengapi:":$CODEBUILD_BUILD_NUMBER"}]' > imagedefinitions.json
