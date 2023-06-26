@@ -18,9 +18,9 @@ phases:
       # - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 954503069243.dkr.ecr.ap-south-1.amazonaws.com
       # - REPOSITORY_URI=954503069243.dkr.ecr.ap-south-1.amazonaws.com/om-test
       - aws secretsmanager get-secret-value --secret-id sonar --query 'SecretString' --output text > sonar.json
-      # - aws secretsmanager get-secret-value --secret-id db_password --query 'SecretString' --output text > db_password.json
+      - aws secretsmanager get-secret-value --secret-id db_password --query 'SecretString' --output text > db_password.json
       # - echo "$(jq -r '.Microsoft' db_password.json)"
-      - export SECRET_VALUE=$(aws secretsmanager get-secret-value --secret-id db_password --query SecretString --output text)
+      - export SECRET_VALUE=$(jq -r '.Microsoft' db_password.json)
       - echo "${SECRET_VALUE}"
       - sed -i "s/PASSWORD/$SECRET_VALUE/g" dotnet/test.json
       - echo "$db_password"
