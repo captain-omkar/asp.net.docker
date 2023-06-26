@@ -20,7 +20,7 @@ phases:
       - aws secretsmanager get-secret-value --secret-id sonar --query 'SecretString' --output text > sonar.json
       - aws secretsmanager get-secret-value --secret-id db_password --query 'SecretString' --output text > db_password.json
       - echo "$(jq -r '.Microsoft' db_password.json)"
-      
+      - echo "$db_password"
       - cat dotnet/test.json
       - echo "$(jq -r '.SONAR_URL' sonar.json)"
       - echo "$(jq -r '.SONAR_TOKEN' sonar.json)"
