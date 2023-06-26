@@ -19,7 +19,8 @@ phases:
       # - REPOSITORY_URI=954503069243.dkr.ecr.ap-south-1.amazonaws.com/om-test
       - aws secretsmanager get-secret-value --secret-id sonar --query 'SecretString' --output text > sonar.json
       - aws secretsmanager get-secret-value --secret-id db_password --query 'SecretString' --output text > db_password.json
-      - sed -i "s/\"Microsoft\": \"Warning\"/\"Microsoft\": \"$(jq -r '.PASSWORD' db_password.json)\"/g" test.json
+      # - sed -i "s/\"Microsoft\": \"Warning\"/\"Microsoft\": \"$(jq -r '.PASSWORD' db_password.json)\"/g" test.json
+      
       - cat test.json
       - echo "$(jq -r '.SONAR_URL' sonar.json)"
       - echo "$(jq -r '.SONAR_TOKEN' sonar.json)"
