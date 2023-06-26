@@ -19,10 +19,12 @@ phases:
       # - REPOSITORY_URI=954503069243.dkr.ecr.ap-south-1.amazonaws.com/om-test
       - aws secretsmanager get-secret-value --secret-id sonar --query 'SecretString' --output text > sonar.json
       - aws secretsmanager get-secret-value --secret-id db_password --query 'SecretString' --output text > db_password.json
+      #- jq --argjson secret "$(cat secret.json)" '.Database.UserName = $secret.username | .Database.Password = $secret.password | .Database.Host = $secret.host | .Database.Port = $secret.port' appsettings.json > updated-appsettings.json
+      - jq --argjson secret "$(cat db_password.json)" '.Microsoft =$db_password' > dotnet/test.json
       # - echo "$(jq -r '.Microsoft' db_password.json)"
-      - export SECRET_VALUE=$(jq -r '.Microsoft' db_password.json)
-      - echo "${SECRET_VALUE}"
-      - sed -i "s/PASSWORD/$SECRET_VALUE/g" dotnet/test.json
+      #- export SECRET_VALUE=$(jq -r '.Microsoft' db_password.json)
+      #- echo "${SECRET_VALUE}"
+      #- sed -i "s/PASSWORD/$SECRET_VALUE/g" dotnet/test.json
       - echo "$db_password"
       - cat dotnet/test.json
       - echo "$(jq -r '.SONAR_URL' sonar.json)"
