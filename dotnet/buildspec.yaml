@@ -2,20 +2,20 @@ version: 0.2
 phases:
   install:
     commands:
-      - yum install -y jq
-      - yum install -y unzip
-      - wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.8.0.2856-linux.zip
-      - unzip sonar-scanner-cli-4.8.0.2856-linux.zip
-      - mv sonar-scanner-4.8.0.2856-linux /opt/sonar-scanner
-      - curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.24.10/2023-01-30/bin/linux/amd64/kubectl
-      - curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.24.10/2023-01-30/bin/linux/arm64/kubectl
-      - chmod +x ./kubectl
-      - mkdir -p $HOME/bin && cp ./kubectl $HOME/bin/kubectl && export PATH=$PATH:$HOME/bin
+      # - yum install -y jq
+      # - yum install -y unzip
+      # - wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.8.0.2856-linux.zip
+      # - unzip sonar-scanner-cli-4.8.0.2856-linux.zip
+      # - mv sonar-scanner-4.8.0.2856-linux /opt/sonar-scanner
+      # - curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.24.10/2023-01-30/bin/linux/amd64/kubectl
+      # - curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.24.10/2023-01-30/bin/linux/arm64/kubectl
+      # - chmod +x ./kubectl
+      # - mkdir -p $HOME/bin && cp ./kubectl $HOME/bin/kubectl && export PATH=$PATH:$HOME/bin
   pre_build:
     commands:
-      - echo Logging in to Amazon ECR...
-      - aws --version
-      - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 954503069243.dkr.ecr.ap-south-1.amazonaws.com
+      # - echo Logging in to Amazon ECR...
+      # - aws --version
+      # - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 954503069243.dkr.ecr.ap-south-1.amazonaws.com
       # - REPOSITORY_URI=954503069243.dkr.ecr.ap-south-1.amazonaws.com/om-test
       - aws secretsmanager get-secret-value --secret-id sonar --query 'SecretString' --output text > sonar.json
       - aws secretsmanager get-secret-value --secret-id db_password --query 'SecretString' --output text > db_password.json
