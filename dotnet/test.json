@@ -3,5 +3,5 @@
       "Microsoft.Hosting.Lifetime": "Information"
 "AllowedHosts": "*",
   "ConnectionStrings": {
-    "MainDatabase": $test
+    "MainDatabase": "$test"
   }
