@@ -1,5 +1,5 @@
 "Default": "Information",
-      "Microsoft": "$db_password",
+      "Microsoft": "PASSWORD",
       "Microsoft.Hosting.Lifetime": "Information"
 "AllowedHosts": "*",
   "ConnectionStrings": {
