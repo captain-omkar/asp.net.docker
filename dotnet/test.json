@@ -1,5 +1,5 @@
 "Default": "Information",
-      "Microsoft": "id=userid;passwd=PASSWORD",
+      "Microsoft": "id=USERID;passwd=PASSWORD",
       "Microsoft.Hosting.Lifetime": "Information"
 "AllowedHosts": "*",
   "ConnectionStrings": {
