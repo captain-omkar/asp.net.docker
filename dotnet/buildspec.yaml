@@ -2,10 +2,10 @@ version: 0.2
 phases:
   install:
     commands:
-      # - yum install -y jq
-      # - yum install -y unzip
-      # - wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.8.0.2856-linux.zip
-      # - unzip sonar-scanner-cli-4.8.0.2856-linux.zip
+      - yum install -y jq
+      - yum install -y unzip
+      - wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.8.0.2856-linux.zip
+      - unzip sonar-scanner-cli-4.8.0.2856-linux.zip
       # - mv sonar-scanner-4.8.0.2856-linux /opt/sonar-scanner
       # - curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.24.10/2023-01-30/bin/linux/amd64/kubectl
       # - curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.24.10/2023-01-30/bin/linux/arm64/kubectl
@@ -18,17 +18,17 @@ phases:
       # - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 954503069243.dkr.ecr.ap-south-1.amazonaws.com
       # - REPOSITORY_URI=954503069243.dkr.ecr.ap-south-1.amazonaws.com/om-test
       #- aws secretsmanager get-secret-value --secret-id sonar --query 'SecretString' --output text > sonar.json
-      - aws secretsmanager get-secret-value --secret-id db_password --query 'SecretString' --output text > db_password.json
-      - echo "$(jq -r '.Microsoft' db_password.json)"
-      - export SECRET_VALUE=$(jq -r '.Microsoft' db_password.json) PASSWORD=$(jq -r '.Password' db_password.json) 
-      - echo "${SECRET_VALUE}, ${PASSWORD}"
-      - sed -i 's/USERID/'"$SECRET_VALUE"'/g; s/PASSWORD/'"$PASSWORD"'/g' dotnet/test.json
+      # - aws secretsmanager get-secret-value --secret-id db_password --query 'SecretString' --output text > db_password.json
+      # - echo "$(jq -r '.Microsoft' db_password.json)"
+      # - export SECRET_VALUE=$(jq -r '.Microsoft' db_password.json) PASSWORD=$(jq -r '.Password' db_password.json) 
+      # - echo "${SECRET_VALUE}, ${PASSWORD}"
+      # - sed -i 's/USERID/'"$SECRET_VALUE"'/g; s/PASSWORD/'"$PASSWORD"'/g' dotnet/test.json
 
       # - sed -i "s/PASSWORD/$SECRET_VALUE/g" dotnet/test.json
-      - cat dotnet/test.json
+      # - cat dotnet/test.json
       #- echo "$(jq -r '.SONAR_URL' sonar.json)"
       #- echo "$(jq -r '.SONAR_TOKEN' sonar.json)"
-      - export KUBECONFIG=$HOME/.kube/config
+      # - export KUBECONFIG=$HOME/.kube/config
   build:
     commands:
       # - echo Build started on `date`
@@ -40,9 +40,9 @@ phases:
       # - docker tag dotnet:latest ${ECR_REPO}:latest
   post_build:
     commands:
-      - echo Build completed on `date`
-      - echo Pushing the Docker images...
-      - docker push ${ECR_REPO}:latest
+      # - echo Build completed on `date`
+      # - echo Pushing the Docker images...
+      # - docker push ${ECR_REPO}:latest
 #       - echo Writing image definitions file...
 #       - echo "$Repository_Name-$Branch_Name"
 #       - printf '[{"name":"sample-container","imageUri"465105616690.dkr.ecr.ap-south-1.amazonaws.com/servicengapi:":$CODEBUILD_BUILD_NUMBER"}]' > imagedefinitions.json
