@@ -2,7 +2,7 @@ version: 0.2
 phases:
   install:
     commands:
-      # - yum install -y jq
+      - yum install -y jq
       - yum install -y unzip
       # - wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.8.0.2856-linux.zip
       # - unzip sonar-scanner-cli-4.8.0.2856-linux.zip
@@ -46,10 +46,12 @@ phases:
 #       - echo Writing image definitions file...
 #       - echo "$Repository_Name-$Branch_Name"
 #       - printf '[{"name":"sample-container","imageUri"465105616690.dkr.ecr.ap-south-1.amazonaws.com/servicengapi:":$CODEBUILD_BUILD_NUMBER"}]' > imagedefinitions.json
-#       - CREDENTIALS=$(aws sts assume-role --role-arn arn:aws:iam::465105616690:role/eks-cluster-role --role-session-name codebuild-kubectl --duration-seconds 900)
-#       - export AWS_ACCESS_KEY_ID="$(echo ${CREDENTIALS} | jq -r '.Credentials.AccessKeyId')"
-#       - export AWS_SECRET_ACCESS_KEY="$(echo ${CREDENTIALS} | jq -r '.Credentials.SecretAccessKey')"
-#       - export AWS_SESSION_TOKEN="$(echo ${CREDENTIALS} | jq -r '.Credentials.SessionToken')"
-#       - export AWS_EXPIRATION=$(echo ${CREDENTIALS} | jq -r '.Credentials.Expiration')
+      - CREDENTIALS=$(aws sts assume-role --role-arn arn:aws:iam::954503069243:role/loco-demo --role-session-name codebuild-kubectl --duration-seconds 900)
+      - export AWS_ACCESS_KEY_ID="$(echo ${CREDENTIALS} | jq -r '.Credentials.AccessKeyId')"
+      - export AWS_SECRET_ACCESS_KEY="$(echo ${CREDENTIALS} | jq -r '.Credentials.SecretAccessKey')"
+      - export AWS_SESSION_TOKEN="$(echo ${CREDENTIALS} | jq -r '.Credentials.SessionToken')"
+      - export AWS_EXPIRATION=$(echo ${CREDENTIALS} | jq -r '.Credentials.Expiration')
+      - git clone https://git-codecommit.ap-south-1.amazonaws.com/v1/repos/loco
+      - ls
 #       - aws eks update-kubeconfig --name Staging_cluster
 #       - kubectl apply -f deployment.yml 
